@@ -34,16 +34,19 @@
     }
     
     /* html2pdf.js로 변환할 때 적용할 CSS 클래스 (print 미디어 쿼리와 동일한 효과) */
-    body.pdf-exporting { background-color: #fff !important; padding: 0 !important; }
-    body.pdf-exporting .max-w-7xl { max-w: 100% !important; width: 100% !important; margin: 0 !important; }
+    body.pdf-exporting { background-color: #fff !important; padding: 0 !important; width: 1024px !important; margin: 0 auto !important; }
+    body.pdf-exporting .max-w-7xl { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 20px !important; box-sizing: border-box !important; }
     body.pdf-exporting header .flex-wrap { display: none !important; }
     body.pdf-exporting .lg\:col-span-1 { display: none !important; }
-    body.pdf-exporting .lg\:col-span-2 { grid-column: span 3 / span 3 !important; }
+    body.pdf-exporting .lg\:col-span-2 { grid-column: span 3 / span 3 !important; width: 100% !important; }
     body.pdf-exporting .shadow-sm { box-shadow: none !important; }
     body.pdf-exporting .border-slate-200 { border-color: #e2e8f0 !important; }
     body.pdf-exporting .bg-slate-100.p-1 { display: none !important; }
     body.pdf-exporting .print-hide { display: none !important; }
-    body.pdf-exporting .leading-relaxed { font-size: 10px !important; }
+    body.pdf-exporting .leading-relaxed { font-size: 11px !important; }
+    /* 테이블 및 스크롤 영역 모바일 잘림 방지 */
+    body.pdf-exporting table { width: 100% !important; min-width: auto !important; table-layout: auto !important; }
+    body.pdf-exporting .overflow-x-auto { overflow: visible !important; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen p-3 sm:p-4 md:p-8">
@@ -806,7 +809,10 @@
       const originalText = btn.innerHTML;
       btn.innerHTML = `<svg class="animate-spin w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5 flex-shrink-0" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 생성 중...`;
       
-      // UI 업데이트가 반영되도록 약간의 지연 시간을 줌
+      // 맨 위로 스크롤하여 모바일 기기에서 캡처 영역이 어긋나는 현상 방지
+      window.scrollTo(0, 0);
+      
+      // UI 업데이트가 반영되도록 렌더링 대기 시간을 약간 늘림 (300ms)
       setTimeout(() => {
         // 인쇄용 스타일 클래스 활성화
         document.body.classList.add('pdf-exporting');
@@ -816,7 +822,13 @@
           margin:       [10, 10, 10, 10],
           filename:     `근무기록일지_${getLocalDateString()}.pdf`,
           image:        { type: 'jpeg', quality: 0.98 },
-          html2canvas:  { scale: 2, useCORS: true, windowWidth: 1024 }, // 모바일 기기에서도 데스크탑 레이아웃 유지
+          html2canvas:  { 
+            scale: 2, 
+            useCORS: true, 
+            windowWidth: 1024,
+            scrollX: 0,
+            scrollY: 0
+          },
           jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
@@ -830,7 +842,7 @@
           btn.innerHTML = originalText;
           alert('PDF 생성 중 오류가 발생했습니다.');
         });
-      }, 150);
+      }, 300);
     };
 
     window.editLog = function(id) {
