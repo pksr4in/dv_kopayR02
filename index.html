@@ -64,9 +64,9 @@
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
               <p class="text-sm text-slate-700 font-medium flex items-center mb-1">
                 <svg class="w-4 h-4 mr-1 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                법정 최저임금 (2025년 기준)
+                법정 최저임금 (2026년 기준)
               </p>
-              <p class="text-lg font-bold text-blue-700">10,030원 <span class="text-xs font-normal text-slate-500">/ 시간</span></p>
+              <p class="text-lg font-bold text-blue-700">10,320원 <span class="text-xs font-normal text-slate-500">/ 시간</span></p>
               <p class="text-xs text-slate-500 mt-1">대한민국은 지역 구분 없이 동일한 최저임금이 적용됩니다.</p>
             </div>
             <div>
@@ -75,12 +75,12 @@
                 나의 시급 (직접 입력)
               </label>
               <div class="relative">
-                <input type="number" id="customWage" step="10" min="0" placeholder="미입력 시 10,030원 적용" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none pr-8 text-sm">
+                <input type="number" id="customWage" step="10" min="0" placeholder="미입력 시 10,320원 적용" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none pr-8 text-sm">
                 <span class="absolute right-3 top-2.5 text-slate-400 text-sm">원</span>
               </div>
               <p id="wageWarning" class="text-red-500 text-xs mt-1.5 hidden flex items-start font-medium">
                 <svg class="w-3.5 h-3.5 mr-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                주의: 법정 최저시급(10,030원)보다 낮습니다!
+                주의: 법정 최저시급(10,320원)보다 낮습니다!
               </p>
             </div>
           </div>
@@ -272,7 +272,7 @@
 
   <script>
     // --- 설정 및 데이터 모델 (대한민국 기준) ---
-    const MINIMUM_WAGE = 10030; // 2025년 최저임금
+    const MINIMUM_WAGE = 10320; // 2026년 최저임금
 
     // --- 유틸리티 함수 ---
     const getLocalDateString = (date = new Date()) => {
